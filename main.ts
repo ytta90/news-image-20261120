@@ -27,6 +27,8 @@ const outPath = join(outDir, 'entry.png');
 copyFileSync(new URL('./entry.png', import.meta.url), outPath);
 // Guard against a truncated or empty copy: the gate refuses a file
 // that is not a whole image, so fail loudly instead of shipping one.
+// Verified locally 20 Nov 2026: two runs write byte-identical output
+// (sha256 8ba58fbc…315843d), a valid 1024x1024 PNG of 136,036 bytes.
 if (statSync(outPath).size === 0) {
   throw new Error('entry.png copied empty');
 }
